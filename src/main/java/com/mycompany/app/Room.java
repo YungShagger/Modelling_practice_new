@@ -3,7 +3,7 @@ package com.mycompany.app;
 public class Room {
 
     private String name;
-    private int id;
+    private int roomId;
     private int capacity;
     private Boolean frenchBed;
     private int cost;
@@ -23,6 +23,14 @@ public class Room {
         return capacity;
     }
 
+    public void setRentable(Boolean rentable) {
+        this.rentable = rentable;
+    }
+
+    public void setCleaned(Boolean cleaned) {
+        this.cleaned = cleaned;
+    }
+
     public Boolean getFrenchBed() {
         return frenchBed;
     }
@@ -35,22 +43,36 @@ public class Room {
         return balchony;
     }
 
-    public int getId() {
-        return id;
+    public int getRoomId() {
+        return roomId;
     }
 
     public String getName() {
         return name;
     }
 
-    public Room(String name, int id, int capacity, Boolean frenchBed, int cost, Boolean balchony, Boolean rentable, Boolean cleaned) {
+    public Room(String name, int roomId, int capacity, Boolean frenchBed, int cost, Boolean balchony, Boolean rentable, Boolean cleaned) {
         this.name = name;
-        this.id = id;
+        this.roomId = roomId;
         this.capacity = capacity;
         this.frenchBed = frenchBed;
         this.cost = cost;
         this.balchony = balchony;
         this.rentable = rentable;
         this.cleaned = cleaned;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", id=" + roomId +
+                ", capacity=" + capacity +
+                ", frenchBed=" + frenchBed +
+                ", cost=" + cost +
+                ", balchony=" + balchony +
+                ", rentable=" + rentable +
+                ", cleaned=" + cleaned +
+                '}';
     }
 }

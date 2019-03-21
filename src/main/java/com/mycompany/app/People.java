@@ -4,19 +4,14 @@ import java.util.List;
 
 public abstract class People {
 
-    private String name;
-    private int age;
-    private String gender;
+    protected String name;
+
 
     public String getName() {
         return name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public String getGender() {
-        return gender;
+    public People(String name) {
+        this.name = name;
     }
 }
