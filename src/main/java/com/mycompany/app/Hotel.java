@@ -9,24 +9,45 @@ import java.util.Map;
 
 public class Hotel {
 
-    private Map<Integer, Room> rooms = new HashMap<>();
+    private Map<Integer, BudgetRoom> budgetRooms = new HashMap<>();
+    private Map<Integer, MidClassRoom> midClassRooms = new HashMap<>();
+    private Map<Integer, PentHouseRoom> pentHouseRooms = new HashMap<>();
+
 
     private static int nextId = 0;
 
-    public List<Room> getRooms() {
-        return new ArrayList<>(rooms.values());
-
+    public List<BudgetRoom> getBudgetRooms() {
+        return new ArrayList<>(budgetRooms.values());
+    }
+    public List<MidClassRoom> getMidClassRooms() {
+        return new ArrayList<>(midClassRooms.values());
+    }
+    public List<PentHouseRoom> getPentHouseRooms() {
+        return new ArrayList<>(pentHouseRooms.values());
     }
 
+
+
+    // Find room by Id!
     public List<Room> getRentedRooms() {
         return new ArrayList<>();
     }
 
-    public void addRoom(String name, int capcity, Boolean frenchBed, int cost, Boolean balchony) {
-        Room room = new Room(name, ++nextId, capcity, frenchBed, cost, balchony,true, true);
-        rooms.put(room.getRoomId(), room);
+
+    public void addBudgetRoom(String name, int capacity, Boolean frenchBed, int cost, Boolean balchony) {
+        BudgetRoom budgetRoom = new BudgetRoom(name, ++nextId, capacity, frenchBed, cost, balchony, true, true);
+        budgetRooms.put(budgetRoom.getRoomId(), budgetRoom);
     }
 
+    public void addMidClassRoom(String name, int capcity, Boolean frenchBed, int cost, Boolean balchony) {
+        MidClassRoom midClassRoom = new MidClassRoom(name, ++nextId, capcity, frenchBed, cost, balchony,true, true);
+        midClassRooms.put(midClassRoom.getRoomId(), midClassRoom);
+    }
+
+    public void addPentHouseRoom(String name, int capcity, Boolean frenchBed, int cost, Boolean balchony) {
+        PentHouseRoom pentHouseRoom = new PentHouseRoom(name, ++nextId, capcity, frenchBed, cost, balchony,true, true);
+        pentHouseRooms.put(pentHouseRoom.getRoomId(), pentHouseRoom);
+    }
 
     public void rent(Customer customer, Room room) throws HotelException {
         chechIfRoomIsOccupied(room);

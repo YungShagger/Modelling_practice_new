@@ -1,6 +1,6 @@
 package com.mycompany.app;
 
-public class Room {
+public abstract class Room {
 
     private String name;
     private int roomId;
