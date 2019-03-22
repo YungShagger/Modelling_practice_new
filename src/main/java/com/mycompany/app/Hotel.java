@@ -27,6 +27,31 @@ public class Hotel {
     }
 
 
+    public MidClassRoom findMidClassRoomById(int inputId) throws InvalidRoomIdException {
+        for (MidClassRoom midClassRoom : getMidClassRooms()) {
+            if (Integer.parseInt(String.valueOf(midClassRoom)) == inputId) {
+                return midClassRoom;
+            }
+        }
+        throw new InvalidRoomIdException("There is no room assigned to the given ID");
+    }
+    public BudgetRoom findBudgetRoomById(int inputId) throws InvalidRoomIdException {
+        for (BudgetRoom budgetRoom : getBudgetRooms()) {
+            if (Integer.parseInt(String.valueOf(budgetRoom)) == inputId) {
+                return budgetRoom;
+            }
+        }
+        throw new InvalidRoomIdException("There is no room assigned to the given ID");
+    }
+    public PentHouseRoom findPentHouseRoomById(int inputId) throws InvalidRoomIdException {
+        for (PentHouseRoom pentHouseRoom : getPentHouseRooms()) {
+            if (Integer.parseInt(String.valueOf(pentHouseRoom)) == inputId) {
+                return pentHouseRoom;
+            }
+        }
+        throw new InvalidRoomIdException("There is no room assigned to the given ID");
+    }
+
 
     // Find room by Id!
     public List<Room> getRentedRooms() {
