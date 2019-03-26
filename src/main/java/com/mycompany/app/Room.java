@@ -2,14 +2,14 @@ package com.mycompany.app;
 
 public abstract class Room {
 
-    private String name;
-    private int roomId;
-    private int capacity;
-    private Boolean frenchBed;
-    private int cost;
-    private Boolean balchony;
-    private Boolean rentable;
-    private Boolean cleaned;
+    protected String name;
+    protected int roomId;
+    protected int capacity;
+    protected Boolean frenchBed;
+    protected int cost;
+    protected Boolean balchony;
+    protected Boolean rentable;
+    protected Boolean cleaned;
 
     public Boolean getRentable() {
         return rentable;
