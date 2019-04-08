@@ -180,6 +180,7 @@ public class Main {
                             + "\n" + "Press 1 to CLEAN ROOM"
                             + "\n" + "Press 2 to CHANGE BREAK STATUS"
                             + "\n" + "Press 3 to CHANGE WORK STATUS"
+                            + "\n" + "Press 4 to ADD NEW WORKER"
                             + "\n" + "Press 0 to go Back");
                     String employeeChoice = scanner.nextLine();
                     if (employeeChoice.equals("1")) {
@@ -188,6 +189,15 @@ public class Main {
 
                     } else if (employeeChoice.equals("3")) {
 
+                    } else if (employeeChoice.equals("4")) {
+                        clearScreen();
+                        System.out.println("Adding a new Employee to the system" + "\n" + "\n"
+                                + "\n" + "Please state the name of the new employee:");
+                        String name = scanner.nextLine();
+                        hotelManager.addEmployee(name);
+                        clearScreen();
+                        System.out.println("Employee has been added to the system.");
+                        pressAButton();
                     } else if (employeeChoice.equals("0")) {
                         break;
                     } else {
