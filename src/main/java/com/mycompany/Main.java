@@ -1,3 +1,5 @@
+package com.mycompany;
+
 import com.mycompany.app.exception.HotelException;
 import com.mycompany.app.exception.NoSuchMenuPointException;
 import com.mycompany.app.*;
