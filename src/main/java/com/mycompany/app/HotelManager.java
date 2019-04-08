@@ -1,5 +1,8 @@
 package com.mycompany.app;
 
+import com.mycompany.app.exception.HotelException;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,27 +12,9 @@ public class HotelManager {
     public Hotel hotel = new Hotel();
 
     public static void main() {
-        /*hotel.addBudgetRoom("room1",4,false,80,true);
-        hotel.addBudgetRoom("room2",2,true,40,true);
-        hotel.addBudgetRoom("room3",2,false,30,false);
-        hotel.addBudgetRoom("room4",3,true,50,false);
-        hotel.addBudgetRoom("room5",6,false,100,true);
-        hotel.addBudgetRoom("room6",2,true,40,true);
-        hotel.addBudgetRoom("room6",5,false,60,true);
-        hotel.addBudgetRoom("room7",1,false,20,true);
-        hotel.addBudgetRoom("room8",8,true,120,true);
-
-        employees.add(new Employee("Andrew",true, false));
-        employees.add(new Employee("Vanessa",true,true));
-        employees.add(new Employee("Hyun",false,true));
-        employees.add(new Employee("Samanta", true,false));
-
-        customers.add(new Customer("Sonny", 1000,4,true,true));
-        customers.add(new Customer("Ashley", 500,2,true,false));
-        customers.add(new Customer("Linda",4000,3,false,false));
-        customers.add(new Customer("mike",200,2,true,true));
-        customers.add(new Customer("Andy",50,1,false,false));*/
     }
+
+    //public Employee findEmployeeByName() { }
 
 
     public void addEmployee(String employeeName) {
@@ -75,20 +60,58 @@ public class HotelManager {
         }
     }
 
-
-    public void printEmployees() {
+    public void printEmployeeNames() {
         System.out.println("Employees:");
         for (Employee employee : employees) {
-            System.out.println(">>>> " + employee);
+            System.out.println(">>>> " + employee.getName());
+        }
+    }
+
+    public void getEmployeeStatus() {
+        System.out.println("Current Employees status:");
+        String breakValue = new String();
+        String workValue = new String();
+        for (Employee employee : employees) {
+            if (employee.getOnBreak().equals(false)) {
+                breakValue = "not on break.";
+            } else if (employee.getOnBreak().equals(true)) {
+                breakValue = "currently on break.";
+            }
+            if (employee.getWorking().equals(true)) {
+                workValue = "Working today ";
+            } else if (employee.getWorking().equals(false)) {
+                workValue = "Not working today ";
+            }
+            System.out.println("\n" + ">>>> " + employee.getName() + ":"
+                    + "\n" + workValue + "and " + breakValue);
         }
     }
 
 
-    public void printCustomers() {
-        System.out.println("Customers");
+    public void getCustomerStatus() {
+        System.out.println("Current Customers status:");
+        String bedValue = new String();
+        String balchonyValue = new String();
         for (Customer customer : customers) {
-            System.out.println(">>>> " + customer);
+            if (customer.getBalchonyNeeded().equals(true)) {
+                balchonyValue = "Yes";
+            } else if (customer.getBalchonyNeeded().equals(false)) {
+                balchonyValue = "No";
+            }
+            if (customer.getFrenchBedNeeded().equals(true)) {
+                bedValue = "Yes";
+            } else if (customer.getFrenchBedNeeded().equals(false)) {
+                bedValue = "No";
+            }
+            System.out.println("\n" + ">>>> " + customer.getName() + ":"
+                    + "\n" + "Money: " + customer.getMoney()
+                    + "   Beds Needed: " + customer.getBedsNeeded()
+                    + "  French Bed Needed: " + bedValue
+                    + "  Balchony Needed: " + balchonyValue
+                    + "\n");
         }
     }
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.mycompany.app;
 
+import com.mycompany.app.exception.HotelException;
+
 public abstract class Room {
 
     protected String name;
@@ -61,6 +63,8 @@ public abstract class Room {
         this.rentable = rentable;
         this.cleaned = cleaned;
     }
+
+    //public abstract void clean(Employee employee) throws HotelException;
 
     @Override
     public String toString() {

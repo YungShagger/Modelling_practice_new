@@ -1,3 +1,4 @@
+import com.mycompany.app.exception.HotelException;
 import com.mycompany.app.exception.NoSuchMenuPointException;
 import com.mycompany.app.*;
 
@@ -22,124 +23,196 @@ public class Main {
         hotelManager.addEmployee("Neil Degrasse Tyson");
         hotelManager.addEmployee("Kevin Spacey");
 
+        hotelManager.addCustomer("Sonny Mayers", 1000,4,true,true);
+        hotelManager.addCustomer("Ashley May", 500,2,true,false);
+        hotelManager.addCustomer("Linda Stone",4000,3,false,false);
+        hotelManager.addCustomer("Mike Wasobsky",200,2,true,true);
+        hotelManager.addCustomer("Andy DeKool",50,1,false,false);
 
+        clearScreen();
+        System.out.println("Welcome to HOTEL GAZEEBO!");
+        pressAButton();
 
         while (true) {
             clearScreen();
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Welcome to HOTEL GAZEEBO!"
-                    + "\n" + "\n" + "\n" + "How may I help you ?"
-                    + "\n" + "Press 1 for the LISTING"
-                    + "\n" + "Press 2 for the ADDING"
-                    + "\n" + "Press 3 for the CLEANIN"
-                    + "\n" + "Press 4 to CHECK EMPLOYEES"
+            System.out.println("MAIN MENU"
+                    + "\n" + "\n" + "\n" + "How may I help you?"
+                    + "\n" + "Press 1 to CHECK ROOMS"
+                    + "\n" + "Press 2 to CHECK CUSTOMERS"
+                    + "\n" + "Press 3 to CHECK EMPLOYEES"
+                    + "\n" + "Press 4 to QUICK RENT"
+                    + "\n" + "press 5 to CHANGE HOTEL"
                     + "\n" + "Press 0 to Exit");
             String menuChoice = scanner.nextLine();
             if (menuChoice.equals("1")) {
-                clearScreen();
-                System.out.println("What would you like to list out?"
-                        + "\n" + "Press 1 to list ROOMS"
-                        + "\n" + "Press 2 to list Employees"
-                        + "\n" + "Press 3 to list Customers");
-                String listChoice = scanner.nextLine();
-                if (listChoice.equals("1")) {
+                while (true) {
                     clearScreen();
-                    hotelManager.printRooms();
-                    pressAButton();
-                } else if (listChoice.equals("2")) {
-                    clearScreen();
-                    hotelManager.printEmployees();
-                    pressAButton();
-                } else if (listChoice.equals("3")) {
-                    clearScreen();
-                    hotelManager.printCustomers();
-                    pressAButton();
-                } else throw new NoSuchMenuPointException("There is no menu point assigned to this number!");
+                    System.out.println("What would you like to do with the rooms?"
+                            + "\n" + "Press 1 to LIST ROOMS"
+                            + "\n" + "Press 2 to ADD ROOMS"
+                            + "\n" + "Press 3 to DELETE ROOMS"
+                            + "\n" + "Press 0 to go back");
+                    String listChoice = scanner.nextLine();
+                    if (listChoice.equals("1")) {
+                        clearScreen();
+                        hotelManager.printRooms();
+                        pressAButton();
+                    } else if (listChoice.equals("2")) {
+                        clearScreen();
+                        System.out.println("What type of room would you like to add?"
+                                + "\n" + "Press 1 to add a Budget Room"
+                                + "\n" + "Press 2 to add a Mid Class Room"
+                                + "\n" + "Press 3 to add a Pent House Room"
+                                + "\n" + "Press 0 to go Back");
+                        String addChoice = scanner.nextLine();
+                        if (addChoice.equals("1")) {
+                            clearScreen();
+                            System.out.println("Adding a Budget Room to the system" + "\n" + "\n"
+                                    + "\n" + "Please state the name of the room:");
+                            String name = scanner.nextLine();
+                            System.out.println("Please state how mane beds are in the room:");
+                            int room = scanner.nextInt();
+                            System.out.println("Please state if there is a frenchbed inthe room:");
+                            Boolean frenchBed = scanner.nextBoolean();
+                            System.out.println("Please state the cost of the room:");
+                            int cost = scanner.nextInt();
+                            System.out.println("Please state if there is a balchony in the room:");
+                            Boolean balchony = scanner.nextBoolean();
+                            hotelManager.addBudgetRoom(name, room, frenchBed, cost, balchony);
+                            clearScreen();
+                            System.out.println("Budget Room has been added to the system.");
+                            pressAButton();
+                        } else if (addChoice.equals("2")) {
+                            clearScreen();
+                            System.out.println("Adding a Mid Class Room to the system" + "\n" + "\n"
+                                    + "\n" + "Please state the name of the room:");
+                            String name = scanner.nextLine();
+                            System.out.println("Please state how mane beds are in the room:");
+                            int room = scanner.nextInt();
+                            System.out.println("Please state if there is a frenchbed inthe room:");
+                            Boolean frenchBed = scanner.nextBoolean();
+                            System.out.println("Please state the cost of the room:");
+                            int cost = scanner.nextInt();
+                            System.out.println("Please state if there is a balchony in the room:");
+                            Boolean balchony = scanner.nextBoolean();
+                            hotelManager.addMidClassRoom(name, room, frenchBed, cost, balchony);
+                            clearScreen();
+                            System.out.println("Mid Class Room has been added to the system.");
+                            pressAButton();
+                        } else if (addChoice.equals("3")) {
+                            clearScreen();
+                            System.out.println("Adding a Pent House Room to the system" + "\n" + "\n"
+                                    + "\n" + "Please state the name of the room:");
+                            String name = scanner.nextLine();
+                            System.out.println("Please state how mane beds are in the room:");
+                            int room = scanner.nextInt();
+                            System.out.println("Please state if there is a frenchbed inthe room:");
+                            Boolean frenchBed = scanner.nextBoolean();
+                            System.out.println("Please state the cost of the room:");
+                            int cost = scanner.nextInt();
+                            System.out.println("Please state if there is a balchony in the room:");
+                            Boolean balchony = scanner.nextBoolean();
+                            hotelManager.addPentHouseRoom(name, room, frenchBed, cost, balchony);
+                            clearScreen();
+                            System.out.println("Pent House Room has been added to the system.");
+                            pressAButton();
+                        } else if (addChoice.equals("0")) {
+                        } else {
+                            System.out.println("There is no menu point assigned to this number!");
+                        }
+                    } else if (listChoice.equals("3")) {
+                        clearScreen();
+                        System.out.println("Not yet implemented");
+                        pressAButton();
+                    } else if (listChoice.equals("0")) {
+                        break;
+                    } else {
+                        System.out.println("There is no menu point assigned to this number!");
+                    }
+                }
             } else if (menuChoice.equals("2")) {
-                clearScreen();
-                System.out.println("What would you like to add the the system?"
-                        + "\n" + "Press 1 to add a Room"
-                        + "\n" + "Press 2 to add an Employee"
-                        + "\n" + "Press 3 to add a Customer");
-                String listChoice = scanner.nextLine();
-                if (listChoice.equals("1")) {
+                while (true) {
                     clearScreen();
-                    System.out.println("What type of room would you like to add?"
-                            + "\n" + "Press 1 to add a Budget Room"
-                            + "\n" + "Press 2 to add a Mid Class Room"
-                            + "\n" + "Press 3 to add a Pent House Room");
-                    String addChoice = scanner.nextLine();
-                    if (addChoice.equals("1")) {
+                    System.out.println("What would you like to do with the customers?"
+                            + "\n" + "Press 1 to LIST CUSTOMERS"
+                            + "\n" + "Press 2 to ADD CUSTOMERS"
+                            + "\n" + "Press 3 to DELETE CUSTOMERS"
+                            + "\n" + "Press 4 to RENT A ROOM"
+                            + "\n" + "Press 0 to go Back");
+                    String listChoice = scanner.nextLine();
+                    if (listChoice.equals("1")) {
                         clearScreen();
-                        System.out.println("Adding a Budget Room" + "\n" + "\n"
-                                + "\n" + "Please state the name of the room:");
-                        String name = scanner.nextLine();
-                        System.out.println("Please state how mane beds are in the room:");
-                        int room = scanner.nextInt();
-                        System.out.println("Please state if there is a frenchbed inthe room:");
-                        Boolean frenchBed = scanner.nextBoolean();
-                        System.out.println("Please state the cost of the room:");
-                        int cost = scanner.nextInt();
-                        System.out.println("Please state if there is a blcony in the room:");
-                        Boolean balchony = scanner.nextBoolean();
-                        hotelManager.addBudgetRoom(name, room, frenchBed, cost, balchony);
-                        clearScreen();
-                        System.out.println("Budget Room has been added.");
+                        hotelManager.getCustomerStatus();
                         pressAButton();
-                    } else if (addChoice.equals("2")) {
+                    } else if (listChoice.equals("2")) {
                         clearScreen();
-                        System.out.println("Adding a Mid Class Room" + "\n" + "\n"
-                                + "\n" + "Please state the name of the room:");
+                        System.out.println("Adding a new Customer to the system" + "\n" + "\n"
+                                + "\n" + "Please state the name of the customer:");
                         String name = scanner.nextLine();
-                        System.out.println("Please state how mane beds are in the room:");
+                        System.out.println("Please state the available money the customer willing to pay:");
+                        int money = scanner.nextInt();
+                        System.out.println("Please state the number of beds the customer needs:");
                         int room = scanner.nextInt();
-                        System.out.println("Please state if there is a frenchbed inthe room:");
+                        System.out.println("Please state if the customer needs a frenchbed:");
                         Boolean frenchBed = scanner.nextBoolean();
-                        System.out.println("Please state the cost of the room:");
-                        int cost = scanner.nextInt();
-                        System.out.println("Please state if there is a blcony in the room:");
+                        System.out.println("Please state if the customer needs a balchony:");
                         Boolean balchony = scanner.nextBoolean();
-                        hotelManager.addMidClassRoom(name, room, frenchBed, cost, balchony);
+                        hotelManager.addCustomer(name, money, room, frenchBed, balchony);
                         clearScreen();
-                        System.out.println("Mid Class Room has been added.");
+                        System.out.println("Customer has been added to the system.");
                         pressAButton();
-                    } else if (addChoice.equals("3")) {
+                    } else if (listChoice.equals("3")) {
                         clearScreen();
-                        System.out.println("Adding a Pent House Room" + "\n" + "\n"
-                                + "\n" + "Please state the name of the room:");
-                        String name = scanner.nextLine();
-                        System.out.println("Please state how mane beds are in the room:");
-                        int room = scanner.nextInt();
-                        System.out.println("Please state if there is a frenchbed inthe room:");
-                        Boolean frenchBed = scanner.nextBoolean();
-                        System.out.println("Please state the cost of the room:");
-                        int cost = scanner.nextInt();
-                        System.out.println("Please state if there is a blcony in the room:");
-                        Boolean balchony = scanner.nextBoolean();
-                        hotelManager.addPentHouseRoom(name, room, frenchBed, cost, balchony);
-                        clearScreen();
-                        System.out.println("Pent House Room has been added.");
+                        System.out.println("Not yet implemented");
                         pressAButton();
-                    } else throw new NoSuchMenuPointException("There is no menu point assigned to this number!");
-                } else if (listChoice.equals("2")) {
-                    clearScreen();
-                    System.out.println("Please state the name of the new employee:");
-                    String name = scanner.nextLine();
-                    hotelManager.addEmployee(name);
-                } else if (listChoice.equals("3")) {
-                    clearScreen();
-                } else throw new NoSuchMenuPointException("There is no menu point assigned to this number!");
-
+                    } else if (listChoice.equals("0")) {
+                        break;
+                    } else {
+                        System.out.println("There is no menu point assigned to this number!");
+                    }
+                }
             } else if (menuChoice.equals("3")) {
+                while (true) {
+                    clearScreen();
+                    hotelManager.getEmployeeStatus();
+                    System.out.println("\n" + "\n" + "What would you like to do?"
+                            + "\n" + "Press 1 to CLEAN ROOM"
+                            + "\n" + "Press 2 to CHANGE BREAK STATUS"
+                            + "\n" + "Press 3 to CHANGE WORK STATUS"
+                            + "\n" + "Press 0 to go Back");
+                    String employeeChoice = scanner.nextLine();
+                    if (employeeChoice.equals("1")) {
+
+                    } else if (employeeChoice.equals("2")) {
+
+                    } else if (employeeChoice.equals("3")) {
+
+                    } else if (employeeChoice.equals("0")) {
+                        break;
+                    } else {
+                        System.out.println("There is no menu point assigned to this number!");
+                    }
+                }
+
 
             } else if (menuChoice.equals("4")) {
+                clearScreen();
+                System.out.println("Not yet implemented");
+                pressAButton();
 
+            } else if (menuChoice.equals("5")) {
+                clearScreen();
+                System.out.println("Not yet implemented");
+                pressAButton();
             } else if (menuChoice.equals("0")) {
                 clearScreen();
                 System.out.println("Thank you for using the Hotel Gazeebo Hotelmanager Beta app!"
                         + "\n" + "Have a great day!");
                 break;
-            } else throw new NoSuchMenuPointException("There is no menu point assigned to this number!");
+            } else {
+                System.out.println("There is no menu point assigned to this number!");
+            }
         }
 
     }
