@@ -74,15 +74,18 @@ public class Hotel {
         pentHouseRooms.put(pentHouseRoom.getRoomId(), pentHouseRoom);
     }
 
-    public void rent(Customer customer, Room room) throws HotelException {
-        chechIfRoomIsOccupied(room);
-        checkIfRoomIsClean(room);
-        checkCustomerMoney(customer, room);
-        checkRoomCapacity(customer, room);
-        checkRoomBalchony(customer,room);
-        checkFrenchBed(customer, room);
-        room.setRentable(false);
-
+    public void rent(Customer customer, Room room) {
+        try {
+            chechIfRoomIsOccupied(room);
+            checkIfRoomIsClean(room);
+            System.out.println(room.getName() + "is renteable and clean");
+            checkCustomerMoney(customer, room);
+            checkRoomCapacity(customer, room);
+            checkRoomBalchony(customer, room);
+            checkFrenchBed(customer, room);
+        } catch (HotelException hotelException){
+            System.out.println(hotelException.getMessage());
+        }
     }
 
     private void checkCustomerMoney(Customer customer,Room room) throws NotEnoughMoneyException {
@@ -90,38 +93,41 @@ public class Hotel {
             throw new NotEnoughMoneyException("Customer dont have enough money for this room.");
         }
     }
-    private void checkRoomCapacity(Customer customer, Room room) throws NotEnoughBedsException, TooMuchBedsException{
+    private void checkRoomCapacity(Customer customer, Room room) throws NotEnoughBedsException{
         if (customer.getBedsNeeded() > room.getCapacity()) {
             throw new NotEnoughBedsException("Not enough bed for the customer.");
         }
         else if (customer.getBedsNeeded() < room.getCapacity()) {
-            throw new TooMuchBedsException("Too much bed for the customer.");
+            int bedDiference = room.capacity - customer.getBedsNeeded();
+            System.out.println(","
+                    + "\n" + "there are " + bedDiference + "more rooms then needed");
         }
     }
-    private void checkRoomBalchony(Customer customer, Room room) throws NoBalchonyExpection, BalchonyException {
+    private void checkRoomBalchony(Customer customer, Room room) throws NoBalchonyExpection{
         if (customer.getBalchonyNeeded().equals(false) && room.getBalchony().equals(true)) {
-            throw new BalchonyException("There is a balchony, but its not needed.");
+            System.out.println(","
+                    + "\n" + "there is a balcony when not needed");
         }
         else if (customer.getBalchonyNeeded().equals(true) && room.getBalchony().equals(false)) {
             throw new NoBalchonyExpection("There is no balchony, but its needed.");
         }
     }
-    private void checkFrenchBed(Customer customer, Room room) throws FrenchBedException, NoFrenchBedException {
+    private void checkFrenchBed(Customer customer, Room room) throws NoFrenchBedException {
         if (customer.getFrenchBedNeeded().equals(true) && room.getFrenchBed().equals(false)) {
-            throw new NoFrenchBedException("There is no frenchbed i nthe room, but its needed.");
+            throw new NoFrenchBedException("There is no frenchbed in the room, but its needed.");
         }
         else if (customer.getFrenchBedNeeded().equals(false) && room.getFrenchBed().equals(true))  {
-           throw new FrenchBedException("There is a frenchbed in the room, but its not desired.");
+            System.out.println("There is a french bed, but its not needed");
         }
     }
     private void chechIfRoomIsOccupied(Room room) throws RoomIsOccupiedException {
         if (room.getRentable().equals(false)) {
-            throw new RoomIsOccupiedException("The room is already occupied");
+            throw new RoomIsOccupiedException("The room is already occupied.");
         }
     }
     private void checkIfRoomIsClean(Room room) throws RoomIsNotCleanException {
         if (room.getCleaned().equals(false)) {
-            throw new RoomIsNotCleanException("The room is not yet cleaned");
+            throw new RoomIsNotCleanException("The room is not yet cleaned.");
         }
     }
 

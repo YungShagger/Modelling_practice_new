@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelManager {
-    public static List<Employee> employees = new ArrayList<>();
-    public static List<Customer> customers = new ArrayList<>();
-    public static Hotel hotel = new Hotel();
+    public List<Employee> employees = new ArrayList<>();
+    public List<Customer> customers = new ArrayList<>();
+    public Hotel hotel = new Hotel();
 
     public static void main() {
-        hotel.addBudgetRoom("room1",4,false,80,true);
+        /*hotel.addBudgetRoom("room1",4,false,80,true);
         hotel.addBudgetRoom("room2",2,true,40,true);
         hotel.addBudgetRoom("room3",2,false,30,false);
         hotel.addBudgetRoom("room4",3,true,50,false);
@@ -28,77 +28,67 @@ public class HotelManager {
         customers.add(new Customer("Ashley", 500,2,true,false));
         customers.add(new Customer("Linda",4000,3,false,false));
         customers.add(new Customer("mike",200,2,true,true));
-        customers.add(new Customer("Andy",50,1,false,false));
+        customers.add(new Customer("Andy",50,1,false,false));*/
     }
 
 
-    private static void addEmployee(String employeeName) {
+    public void addEmployee(String employeeName) {
         employees.add(new Employee(employeeName, true, false));
     }
-    public void callAddEmployee(String employeeName) {
-        addEmployee(employeeName);
-    }
 
-    private static void addCustomer(String name, int money, int space, Boolean frenchBed, Boolean balchony) {
+
+    public void addCustomer(String name, int money, int space, Boolean frenchBed, Boolean balchony) {
         customers.add(new Customer(name, money, space, frenchBed, balchony));
     }
-    public void callAddCustomer(String name, int money, int space, Boolean frenchBed, Boolean balchony) {
-        addCustomer(name, money, space, frenchBed, balchony);
-    }
 
-    private static void addBudgetRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
+
+    public void addBudgetRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
         hotel.addBudgetRoom(name, room, frenchBed, cost, balchony);
     }
-    public void callAddBudgetRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
-        addBudgetRoom(name, room, frenchBed, cost, balchony);
-    }
 
 
-    private static void addMidClassRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
+
+    public void addMidClassRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
         hotel.addMidClassRoom(name, room, frenchBed, cost, balchony);
     }
-    public void callAddMidClassRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
-        addMidClassRoom(name, room, false, cost, balchony);
-    }
 
-    private static void addPentHouseRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
+
+    public void addPentHouseRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
         hotel.addPentHouseRoom(name, room, frenchBed, cost, balchony);
     }
-    public void callAddPentHouseRoom(String name, int room, Boolean frenchBed, int cost, Boolean balchony) {
-        addPentHouseRoom(name, room, frenchBed, cost, balchony);
-    }
 
 
-    private static void printRooms() {
+    public void printRooms() {
+        System.out.println("Budget Rooms:");
         for (BudgetRoom budgetRoom : hotel.getBudgetRooms()) {
-            System.out.println(budgetRoom);
+            System.out.println(">>>> " + budgetRoom);
         }
+        System.out.println("\n");
+        System.out.println("Midclass Rooms:");
         for (MidClassRoom midClassRoom : hotel.getMidClassRooms()) {
-            System.out.println(midClassRoom);
+            System.out.println(">>>> " + midClassRoom);
         }
+        System.out.println("\n");
+        System.out.println("Pent House Rooms");
         for (PentHouseRoom pentHouseRoom : hotel.getPentHouseRooms()) {
-            System.out.println(pentHouseRoom);
+            System.out.println(">>>> " + pentHouseRoom);
         }
     }
-    public void callPrintRooms() {
-        printRooms();
-    }
 
-    private static void printEmployees() {
+
+    public void printEmployees() {
+        System.out.println("Employees:");
         for (Employee employee : employees) {
-            System.out.println(employee);
+            System.out.println(">>>> " + employee);
         }
-    }
-    public void callPrintEmployees() {
-        printEmployees();
     }
 
-    private static void printCustomers() {
+
+    public void printCustomers() {
+        System.out.println("Customers");
         for (Customer customer : customers) {
-            System.out.println(customer);
+            System.out.println(">>>> " + customer);
         }
     }
-    public void callPrintCustomers() {
-        printCustomers();
-    }
+
 }
