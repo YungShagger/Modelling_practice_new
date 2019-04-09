@@ -11,6 +11,8 @@ public class HotelManager {
     public List<Customer> customers = new ArrayList<>();
     public Hotel hotel = new Hotel();
 
+    private static int nextId = 0;
+
     public static void main() {
     }
 
@@ -18,7 +20,7 @@ public class HotelManager {
 
 
     public void addEmployee(String employeeName) {
-        employees.add(new Employee(employeeName, true, false));
+        employees.add(new Employee(employeeName,++nextId , true, false));
     }
 
 
@@ -42,28 +44,92 @@ public class HotelManager {
         hotel.addPentHouseRoom(name, room, frenchBed, cost, balchony);
     }
 
+    public Employee findEmployeeById(int userInput) throws HotelException {
+        for (Employee employee : employees) {
+            if ((employee.getWorkerId() == userInput)) {
+                return employee;
+            }
+        }
+        throw new HotelException("There is no employee assigned to the ID or incorrect ID!");
+    }
 
-    public void printRooms() {
-        System.out.println("Budget Rooms:");
-        for (BudgetRoom budgetRoom : hotel.getBudgetRooms()) {
-            System.out.println(">>>> " + budgetRoom);
-        }
-        System.out.println("\n");
-        System.out.println("Midclass Rooms:");
-        for (MidClassRoom midClassRoom : hotel.getMidClassRooms()) {
-            System.out.println(">>>> " + midClassRoom);
-        }
-        System.out.println("\n");
-        System.out.println("Pent House Rooms");
-        for (PentHouseRoom pentHouseRoom : hotel.getPentHouseRooms()) {
-            System.out.println(">>>> " + pentHouseRoom);
+    public void changeWorkStatus(Employee employee) {
+        if (employee.getWorking().equals(true)) {
+            employee.setWorking(false);
+        } else {
+            employee.setWorking(true);
         }
     }
 
-    public void printEmployeeNames() {
-        System.out.println("Employees:");
-        for (Employee employee : employees) {
-            System.out.println(">>>> " + employee.getName());
+    public void changeBreakStatus(Employee employee) {
+        if (employee.getOnBreak().equals(true)) {
+            employee.setOnBreak(false);
+        } else {
+            employee.setOnBreak(true);
+        }
+    }
+
+    public void printRooms() {
+        String rent = new String();
+        String clean = new String();
+        String balchony = new String();
+        String frenchBed = new String();
+        System.out.println("Budget Rooms:" + "\n");
+        for (BudgetRoom budgetRoom : hotel.getBudgetRooms()) {
+            if (budgetRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (budgetRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (budgetRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (budgetRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + budgetRoom.getCapacity() + "   Cost/Day: " + budgetRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
+        }
+        System.out.println("\n" + "\n" + "\n" + "Mid Class Rooms:" + "\n");
+        for (MidClassRoom midClassRoom : hotel.getMidClassRooms()) {
+            if (midClassRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (midClassRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (midClassRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (midClassRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + midClassRoom.getCapacity() + "   Cost/Day: " + midClassRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
+        }
+        System.out.println("\n" + "\n" + "\n" + "Pent House Rooms:" + "\n");
+        for (PentHouseRoom pentHouseRoom : hotel.getPentHouseRooms()) {
+            if (pentHouseRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (pentHouseRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (pentHouseRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (pentHouseRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + pentHouseRoom.getCapacity() + "   Cost/Day: " + pentHouseRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
         }
     }
 
@@ -82,11 +148,10 @@ public class HotelManager {
             } else if (employee.getWorking().equals(false)) {
                 workValue = "Not working today ";
             }
-            System.out.println("\n" + ">>>> " + employee.getName() + ":"
+            System.out.println("\n" + ">>>> " + employee.getName()+ "  ID:"+ employee.getWorkerId()
                     + "\n" + workValue + "and " + breakValue);
         }
     }
-
 
     public void getCustomerStatus() {
         System.out.println("Current Customers status:");
