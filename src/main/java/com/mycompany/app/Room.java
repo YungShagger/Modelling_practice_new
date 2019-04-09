@@ -64,7 +64,7 @@ public abstract class Room {
         this.cleaned = cleaned;
     }
 
-    public abstract void clean(Employee employee, Room room) throws HotelException;
+    public abstract void clean(Employee employee) throws HotelException;
 
     @Override
     public String toString() {

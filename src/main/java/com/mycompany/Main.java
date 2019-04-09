@@ -190,6 +190,7 @@ public class Main {
                                 Employee employee = hotelManager.findEmployeeById(emp);
                                 if (hotelManager.employees.contains(employee)) {
                                     clearScreen();
+                                    scanner.nextLine();
                                     hotelManager.printRooms();
                                     System.out.println("What type of room would you like to clean?"
                                             + "\n" + "Press 1 for the BUDGET ROOMS"
@@ -203,19 +204,24 @@ public class Main {
                                         System.out.println("Witch Room would you like to clean?"
                                                 + "\n" + "Please state the Room Id!");
                                         int room = scanner.nextInt();
-
+                                            hotelManager.hotel.getBudgetRooms().get(room).clean(employee);
+                                            pressAButton();
                                     } else if (roomChoice.equals("2")) {
                                         clearScreen();
                                         hotelManager.printMidClassRooms();
                                         System.out.println("Witch Room would you like to clean?"
                                                 + "\n" + "Please state the Room Id!");
                                         int room = scanner.nextInt();
+                                        hotelManager.hotel.getMidClassRooms().get(room).clean(employee);
+                                        pressAButton();
                                     } else if (roomChoice.equals("3")) {
                                         clearScreen();
                                         hotelManager.printPentHouseRooms();
                                         System.out.println("Witch Room would you like to clean?"
                                                 + "\n" + "Please state the Room Id!");
                                         int room = scanner.nextInt();
+                                        hotelManager.hotel.getPentHouseRooms().get(room).clean(employee);
+                                        pressAButton();
                                     } else if (roomChoice.equals("0")) {
                                         break;
                                     } else {

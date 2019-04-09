@@ -9,16 +9,16 @@ public class BudgetRoom extends Room {
     }
 
     @Override
-    public void clean(Employee employee, Room room) throws HotelException {
+    public void clean(Employee employee) throws HotelException {
         if (employee.getWorking().equals(false)) {
-            throw new HotelException(employee.getName() + " can't clean the room " + room.getRoomId() + ", due to him not at work currently.");
+            throw new HotelException(employee.getName() + " can't clean the room " + getRoomId() + ", due to him not at work currently.");
         } else if (employee.getOnBreak().equals(true)) {
-            throw new HotelException(employee.getName() + " can't clean the room " + room.getRoomId() + ", due to him is on a break currently.");
-        } else if (room.getCleaned().equals(true)) {
-            throw new HotelException(employee.getName() + "can't clean the room " + room.getRoomId() + ", due to the room has been already cleaned.");
+            throw new HotelException(employee.getName() + " can't clean the room " + getRoomId() + ", due to him is on a break currently.");
+        } else if (getCleaned().equals(true)) {
+            throw new HotelException(employee.getName() + "can't clean the room " + getRoomId() + ", due to the room has been already cleaned.");
         } else {
-            room.setCleaned(true);
-            System.out.println("The room " + room.getRoomId() + " has been successfuly cleaned.");
+            setCleaned(true);
+            System.out.println("The room " + getRoomId() + " has been successfuly cleaned.");
         }
     }
 }
