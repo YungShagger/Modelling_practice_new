@@ -52,8 +52,26 @@ public class Hotel {
         throw new InvalidRoomIdException("There is no room assigned to the given ID");
     }
 
+    public Room findRoomById(int inputId) throws InvalidRoomIdException {
+        for (BudgetRoom budgetRoom : getBudgetRooms()) {
+            if (Integer.parseInt(String.valueOf(budgetRoom)) == inputId) {
+                return budgetRoom;
+            }
+        }
+        for (MidClassRoom midClassRoom : getMidClassRooms()) {
+            if (Integer.parseInt(String.valueOf(midClassRoom)) == inputId) {
+                return midClassRoom;
+            }
+        }
+        for (PentHouseRoom pentHouseRoom : getPentHouseRooms()) {
+            if (Integer.parseInt(String.valueOf(pentHouseRoom)) == inputId) {
+                return pentHouseRoom;
+            }
+        }
+        throw new InvalidRoomIdException("There is no room assigned to the given ID");
+    }
 
-    // Find room by Id!
+
     public List<Room> getRentedRooms() {
         return new ArrayList<>();
     }
@@ -93,6 +111,7 @@ public class Hotel {
             throw new NotEnoughMoneyException("Customer dont have enough money for this room.");
         }
     }
+
     private void checkRoomCapacity(Customer customer, Room room) throws NotEnoughBedsException{
         if (customer.getBedsNeeded() > room.getCapacity()) {
             throw new NotEnoughBedsException("Not enough bed for the customer.");
@@ -103,6 +122,7 @@ public class Hotel {
                     + "\n" + "there are " + bedDiference + "more rooms then needed");
         }
     }
+
     private void checkRoomBalchony(Customer customer, Room room) throws NoBalchonyExpection{
         if (customer.getBalchonyNeeded().equals(false) && room.getBalchony().equals(true)) {
             System.out.println(","
@@ -112,6 +132,7 @@ public class Hotel {
             throw new NoBalchonyExpection("There is no balchony, but its needed.");
         }
     }
+
     private void checkFrenchBed(Customer customer, Room room) throws NoFrenchBedException {
         if (customer.getFrenchBedNeeded().equals(true) && room.getFrenchBed().equals(false)) {
             throw new NoFrenchBedException("There is no frenchbed in the room, but its needed.");
@@ -120,11 +141,13 @@ public class Hotel {
             System.out.println("There is a french bed, but its not needed");
         }
     }
+
     private void chechIfRoomIsOccupied(Room room) throws RoomIsOccupiedException {
         if (room.getRentable().equals(false)) {
             throw new RoomIsOccupiedException("The room is already occupied.");
         }
     }
+
     private void checkIfRoomIsClean(Room room) throws RoomIsNotCleanException {
         if (room.getCleaned().equals(false)) {
             throw new RoomIsNotCleanException("The room is not yet cleaned.");

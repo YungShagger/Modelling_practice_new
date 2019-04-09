@@ -169,6 +169,7 @@ public class Main {
                 }
             } else if (menuChoice.equals("3")) {
                 while (true) {
+
                     clearScreen();
                     hotelManager.getEmployeeStatus();
                     System.out.println("\n" + "\n" + "What would you like to do?"
@@ -180,7 +181,53 @@ public class Main {
                             + "\n" + "Press 0 to go Back");
                     String employeeChoice = scanner.nextLine();
                     if (employeeChoice.equals("1")) {
+                        while (true) {
+                            hotelManager.getEmployeeStatus();
+                            System.out.println("Witch Employee would you like to do the cleaning?"
+                                    + "\n" + "Please state the Employee Id!");
+                            int emp = scanner.nextInt();
+                            try {
+                                Employee employee = hotelManager.findEmployeeById(emp);
+                                if (hotelManager.employees.contains(employee)) {
+                                    clearScreen();
+                                    hotelManager.printRooms();
+                                    System.out.println("What type of room would you like to clean?"
+                                            + "\n" + "Press 1 for the BUDGET ROOMS"
+                                            + "\n" + "Press 2 for the MID CLASS ROOMS"
+                                            + "\n" + "Press 3 for the PENT HOUSE ROOMS"
+                                            + "\n" + "Press 0 to go Back");
+                                    String roomChoice = scanner.nextLine();
+                                    if (roomChoice.equals("1")) {
+                                        clearScreen();
+                                        hotelManager.printBudgetRooms();
+                                        System.out.println("Witch Room would you like to clean?"
+                                                + "\n" + "Please state the Room Id!");
+                                        int room = scanner.nextInt();
 
+                                    } else if (roomChoice.equals("2")) {
+                                        clearScreen();
+                                        hotelManager.printMidClassRooms();
+                                        System.out.println("Witch Room would you like to clean?"
+                                                + "\n" + "Please state the Room Id!");
+                                        int room = scanner.nextInt();
+                                    } else if (roomChoice.equals("3")) {
+                                        clearScreen();
+                                        hotelManager.printPentHouseRooms();
+                                        System.out.println("Witch Room would you like to clean?"
+                                                + "\n" + "Please state the Room Id!");
+                                        int room = scanner.nextInt();
+                                    } else if (roomChoice.equals("0")) {
+                                        break;
+                                    } else {
+                                        clearScreen();
+                                        System.out.println("There is no menu point assigned to this number!");
+                                        pressAButton();
+                                    }
+                                }
+                            } catch (HotelException e) {
+                                e.getMessage();
+                            }
+                        }
                     } else if (employeeChoice.equals("2")) {
                         clearScreen();
                         hotelManager.getEmployeeStatus();
@@ -191,6 +238,7 @@ public class Main {
                             clearScreen();
                             System.out.println("Working Status succesfuly changed.");
                             pressAButton();
+                            scanner.nextLine();
                         } catch (HotelException e) {
                             e.getMessage();
                         }
@@ -204,6 +252,7 @@ public class Main {
                             clearScreen();
                             System.out.println("Break Status succesfuly changed.");
                             pressAButton();
+                            scanner.nextLine();
                         } catch (HotelException e) {
                             e.getMessage();
                         }
@@ -216,16 +265,17 @@ public class Main {
                         clearScreen();
                         System.out.println("Employee has been added to the system.");
                         pressAButton();
+                        scanner.nextLine();
                     } else if (employeeChoice.equals("5")) {
 
                     } else if (employeeChoice.equals("0")) {
                         break;
                     } else {
+                        clearScreen();
                         System.out.println("There is no menu point assigned to this number!");
+                        pressAButton();
                     }
                 }
-
-
             } else if (menuChoice.equals("4")) {
                 clearScreen();
                 System.out.println("Not yet implemented");
@@ -246,7 +296,6 @@ public class Main {
                 pressAButton();
             }
         }
-
     }
 
     private static void clearScreen() {

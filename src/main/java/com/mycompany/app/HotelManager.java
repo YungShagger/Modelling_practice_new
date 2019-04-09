@@ -5,6 +5,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class HotelManager {
     public List<Employee> employees = new ArrayList<>();
@@ -15,8 +16,6 @@ public class HotelManager {
 
     public static void main() {
     }
-
-    //public Employee findEmployeeByName() { }
 
 
     public void addEmployee(String employeeName) {
@@ -56,8 +55,10 @@ public class HotelManager {
     public void changeWorkStatus(Employee employee) {
         if (employee.getWorking().equals(true)) {
             employee.setWorking(false);
+            employee.setOnBreak(false);
         } else {
             employee.setWorking(true);
+            employee.setOnBreak(false);
         }
     }
 
@@ -66,6 +67,84 @@ public class HotelManager {
             employee.setOnBreak(false);
         } else {
             employee.setOnBreak(true);
+        }
+    }
+
+    public void printBudgetRooms() {
+        String rent = new String();
+        String clean = new String();
+        String balchony = new String();
+        String frenchBed = new String();
+        System.out.println("Budget Rooms:" + "\n");
+        for (BudgetRoom budgetRoom : hotel.getBudgetRooms()) {
+            if (budgetRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (budgetRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (budgetRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (budgetRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + budgetRoom.getCapacity() + "   Cost/Day: " + budgetRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
+        }
+    }
+
+    public void printMidClassRooms() {
+        String rent = new String();
+        String clean = new String();
+        String balchony = new String();
+        String frenchBed = new String();
+        System.out.println("\n" + "\n" + "\n" + "Mid Class Rooms:" + "\n");
+        for (MidClassRoom midClassRoom : hotel.getMidClassRooms()) {
+            if (midClassRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (midClassRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (midClassRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (midClassRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + midClassRoom.getCapacity() + "   Cost/Day: " + midClassRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
+        }
+    }
+
+    public void printPentHouseRooms() {
+        String rent = new String();
+        String clean = new String();
+        String balchony = new String();
+        String frenchBed = new String();
+        System.out.println("\n" + "\n" + "\n" + "Pent House Rooms:" + "\n");
+        for (PentHouseRoom pentHouseRoom : hotel.getPentHouseRooms()) {
+            if (pentHouseRoom.getRentable().equals(true)) {
+                rent = "Yes";
+            } else rent = "No";
+            if (pentHouseRoom.getCleaned().equals(true)) {
+                clean = "Yes";
+            } else clean = "No";
+            if (pentHouseRoom.getBalchony().equals(true)) {
+                balchony = "Yes";
+            } else balchony = "No";
+            if (pentHouseRoom.getFrenchBed().equals(true)) {
+                frenchBed = "Yes";
+            } else frenchBed = "No";
+            System.out.println("\n" + ">>>> " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
+                    + "\n" + "Number of Beds: " + pentHouseRoom.getCapacity() + "   Cost/Day: " + pentHouseRoom.getCost()
+                    + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
+                    + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
         }
     }
 
