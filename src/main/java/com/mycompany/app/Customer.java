@@ -6,9 +6,12 @@ public class Customer extends People {
     private int bedsNeeded;
     private Boolean frenchBedNeeded;
     private Boolean balchonyNeeded;
+    private int customerId;
 
-    public Customer(String name, int money, int bedsNeeded, Boolean frenchBedNeeded, Boolean balchonyNeeded) {
+
+    public Customer(String name, int customerId, int money, int bedsNeeded, Boolean frenchBedNeeded, Boolean balchonyNeeded) {
         super(name);
+        this.customerId = customerId;
         this.money = money;
         this.bedsNeeded = bedsNeeded;
         this.frenchBedNeeded = frenchBedNeeded;
@@ -29,6 +32,10 @@ public class Customer extends People {
 
     public Boolean getBalchonyNeeded() {
         return balchonyNeeded;
+    }
+
+    public int getCustomerId() {
+        return customerId;
     }
 
     @Override

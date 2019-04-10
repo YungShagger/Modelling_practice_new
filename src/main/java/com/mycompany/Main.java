@@ -61,7 +61,8 @@ public class Main {
                         clearScreen();
                         hotelManager.printRooms();
                         pressAButton();
-                    } else if (listChoice.equals("2")) {
+                    }
+                    else if (listChoice.equals("2")) {
                         clearScreen();
                         System.out.println("What type of room would you like to add?"
                                 + "\n" + "Press 1 to add a Budget Room"
@@ -118,31 +119,36 @@ public class Main {
                         } else {
                             System.out.println("There is no menu point assigned to this number!");
                         }
-                    } else if (listChoice.equals("3")) {
+                    }
+                    else if (listChoice.equals("3")) {
                         clearScreen();
                         System.out.println("Not yet implemented");
                         pressAButton();
-                    } else if (listChoice.equals("0")) {
+                    }
+                    else if (listChoice.equals("0")) {
                         break;
-                    } else {
+                    }
+                    else {
                         System.out.println("There is no menu point assigned to this number!");
                     }
                 }
-            } else if (menuChoice.equals("2")) {
+            }
+            else if (menuChoice.equals("2")) {
                 while (true) {
                     clearScreen();
                     System.out.println("What would you like to do with the customers?"
                             + "\n" + "Press 1 to LIST CUSTOMERS"
                             + "\n" + "Press 2 to ADD CUSTOMERS"
-                            + "\n" + "Press 3 to DELETE CUSTOMERS"
-                            + "\n" + "Press 4 to RENT A ROOM"
+                            + "\n" + "Press 3 to RENT A ROOM"
+                            + "\n" + "Press 4 to DELETE CUSTOMERS"
                             + "\n" + "Press 0 to go Back");
                     String listChoice = scanner.nextLine();
                     if (listChoice.equals("1")) {
                         clearScreen();
                         hotelManager.getCustomerStatus();
                         pressAButton();
-                    } else if (listChoice.equals("2")) {
+                    }
+                    else if (listChoice.equals("2")) {
                         clearScreen();
                         System.out.println("Adding a new Customer to the system" + "\n" + "\n"
                                 + "\n" + "Please state the name of the customer:");
@@ -157,17 +163,59 @@ public class Main {
                         clearScreen();
                         System.out.println("Customer has been added to the system.");
                         pressAButton();
-                    } else if (listChoice.equals("3")) {
+                    }
+                    else if (listChoice.equals("3")) {
                         clearScreen();
                         System.out.println("Not yet implemented");
                         pressAButton();
-                    } else if (listChoice.equals("0")) {
+                    }
+                    else if (listChoice.equals("4")) {
+                        while (true){
+                            try {
+                                clearScreen();
+                                hotelManager.getCustomerStatus();
+                                System.out.println("Witch Customer do you want to remove from the system?"
+                                        + "\n" + "Please state the Id!");
+                                int customerToDelete = scanner.nextInt();
+                                if (hotelManager.customers.contains(hotelManager.findCustomerById(customerToDelete))){
+                                    Boolean areYouSure = yesNoInputToBool("Are you sure you want to remove the Customer?"
+                                            + "\n" +"Please aswer with yes or no!");
+                                    if (areYouSure.equals(true)) {
+                                        clearScreen();
+                                        hotelManager.deleteCustomer(hotelManager.findCustomerById(customerToDelete));
+                                        System.out.println("The removal of the Customer was successful.");
+                                        pressAButton();
+                                        scanner.nextLine();
+                                        break;
+                                    }
+                                    else {
+                                        clearScreen();
+                                        System.out.println("The removal of the Customer from the system has been cancelled.");
+                                        pressAButton();
+                                        scanner.nextLine();
+                                        break;
+                                    }
+                                } else {
+                                clearScreen();
+                                System.out.println("There is no Customer assignet to the Id or the Id is incorrect");
+                                pressAButton();
+                                }
+                            } catch (HotelException e){
+                                clearScreen();
+                                System.out.println(e.getMessage());
+                                pressAButton();
+                            }
+                        }
+                    }
+                    else if (listChoice.equals("0")) {
                         break;
-                    } else {
+                    }
+                    else {
                         System.out.println("There is no menu point assigned to this number!");
                     }
                 }
-            } else if (menuChoice.equals("3")) {
+            }
+            else if (menuChoice.equals("3")) {
                 while (true) {
 
                     clearScreen();
@@ -176,65 +224,64 @@ public class Main {
                             + "\n" + "Press 1 to CLEAN ROOM"
                             + "\n" + "Press 2 to CHANGE WORKING STATUS"
                             + "\n" + "Press 3 to CHANGE BREAK STATUS"
-                            + "\n" + "Press 4 to ADD NEW WORKER"
-                            + "\n" + "Press 4 to DELETE WORKER"
+                            + "\n" + "Press 4 to ADD NEW EMPLOYEE"
+                            + "\n" + "Press 5 to DELETE EMPLOYEE"
                             + "\n" + "Press 0 to go Back");
                     String employeeChoice = scanner.nextLine();
                     if (employeeChoice.equals("1")) {
-                        while (true) {
-                            hotelManager.getEmployeeStatus();
-                            System.out.println("Witch Employee would you like to do the cleaning?"
-                                    + "\n" + "Please state the Employee Id!");
-                            int emp = scanner.nextInt();
-                            try {
-                                Employee employee = hotelManager.findEmployeeById(emp);
-                                if (hotelManager.employees.contains(employee)) {
+                        clearScreen();
+                        hotelManager.getEmployeeStatus();
+                        System.out.println("\n" + "\n" + "\n" + "Witch Employee would you like to do the cleaning?"
+                                + "\n" + "Please state the Employee Id!");
+                        int emp = scanner.nextInt();
+                        try {
+                            Employee employee = hotelManager.findEmployeeById(emp);
+                            if (hotelManager.employees.contains(employee)) {
+                                clearScreen();
+                                scanner.nextLine();
+                                hotelManager.printRooms();
+                                System.out.println("What type of room would you like to clean?"
+                                        + "\n" + "Press 1 for the BUDGET ROOMS"
+                                        + "\n" + "Press 2 for the MID CLASS ROOMS"
+                                        + "\n" + "Press 3 for the PENT HOUSE ROOMS"
+                                        + "\n" + "Press 0 to go Back");
+                                String roomChoice = scanner.nextLine();
+                                if (roomChoice.equals("1")) {
                                     clearScreen();
+                                    hotelManager.printBudgetRooms();
+                                    System.out.println("Witch Room would you like to clean?"
+                                            + "\n" + "Please state the Room Number!");
+                                    int room = scanner.nextInt();
+                                    hotelManager.hotel.getBudgetRooms().get(room-1).clean(employee);
                                     scanner.nextLine();
-                                    hotelManager.printRooms();
-                                    System.out.println("What type of room would you like to clean?"
-                                            + "\n" + "Press 1 for the BUDGET ROOMS"
-                                            + "\n" + "Press 2 for the MID CLASS ROOMS"
-                                            + "\n" + "Press 3 for the PENT HOUSE ROOMS"
-                                            + "\n" + "Press 0 to go Back");
-                                    String roomChoice = scanner.nextLine();
-                                    if (roomChoice.equals("1")) {
-                                        clearScreen();
-                                        hotelManager.printBudgetRooms();
-                                        System.out.println("Witch Room would you like to clean?"
-                                                + "\n" + "Please state the Room Id!");
-                                        int room = scanner.nextInt();
-                                            hotelManager.hotel.getBudgetRooms().get(room).clean(employee);
-                                            pressAButton();
-                                    } else if (roomChoice.equals("2")) {
-                                        clearScreen();
-                                        hotelManager.printMidClassRooms();
-                                        System.out.println("Witch Room would you like to clean?"
-                                                + "\n" + "Please state the Room Id!");
-                                        int room = scanner.nextInt();
-                                        hotelManager.hotel.getMidClassRooms().get(room).clean(employee);
-                                        pressAButton();
-                                    } else if (roomChoice.equals("3")) {
-                                        clearScreen();
-                                        hotelManager.printPentHouseRooms();
-                                        System.out.println("Witch Room would you like to clean?"
-                                                + "\n" + "Please state the Room Id!");
-                                        int room = scanner.nextInt();
-                                        hotelManager.hotel.getPentHouseRooms().get(room).clean(employee);
-                                        pressAButton();
-                                    } else if (roomChoice.equals("0")) {
-                                        break;
-                                    } else {
-                                        clearScreen();
-                                        System.out.println("There is no menu point assigned to this number!");
-                                        pressAButton();
-                                    }
+                                } else if (roomChoice.equals("2")) {
+                                    clearScreen();
+                                    hotelManager.printMidClassRooms();
+                                    System.out.println("Witch Room would you like to clean?"
+                                            + "\n" + "Please state the Room Number!");
+                                    int room = scanner.nextInt();
+                                    hotelManager.hotel.getMidClassRooms().get(room-1).clean(employee);
+                                    scanner.nextLine();
+                                } else if (roomChoice.equals("3")) {
+                                    clearScreen();
+                                    hotelManager.printPentHouseRooms();
+                                    System.out.println("Witch Room would you like to clean?"
+                                            + "\n" + "Please state the Room Number!");
+                                    int room = scanner.nextInt();
+                                    hotelManager.hotel.getPentHouseRooms().get(room-1).clean(employee);
+                                    scanner.nextLine();
+                                } else if (roomChoice.equals("0")) {
+                                } else {
+                                    clearScreen();
+                                    System.out.println("There is no Employee assigned to this number!");
+                                    pressAButton();
                                 }
-                            } catch (HotelException e) {
-                                e.getMessage();
                             }
+                        } catch (HotelException e) {
+                            e.getMessage();
                         }
-                    } else if (employeeChoice.equals("2")) {
+                    }
+                    else if (employeeChoice.equals("2")) {
                         clearScreen();
                         hotelManager.getEmployeeStatus();
                         System.out.println("\n" + "\n" + "Witch Employees Working status would you like to change?");
@@ -248,7 +295,8 @@ public class Main {
                         } catch (HotelException e) {
                             e.getMessage();
                         }
-                    } else if (employeeChoice.equals("3")) {
+                    }
+                    else if (employeeChoice.equals("3")) {
                         clearScreen();
                         hotelManager.getEmployeeStatus();
                         System.out.println("\n" + "\n" + "Witch Employees Break status would you like to change?");
@@ -262,7 +310,8 @@ public class Main {
                         } catch (HotelException e) {
                             e.getMessage();
                         }
-                    } else if (employeeChoice.equals("4")) {
+                    }
+                    else if (employeeChoice.equals("4")) {
                         clearScreen();
                         System.out.println("Adding a new Employee to the system" + "\n" + "\n"
                         + "\n" + "Please state the name of the new employee:");
@@ -272,11 +321,49 @@ public class Main {
                         System.out.println("Employee has been added to the system.");
                         pressAButton();
                         scanner.nextLine();
-                    } else if (employeeChoice.equals("5")) {
-
-                    } else if (employeeChoice.equals("0")) {
+                    }
+                    else if (employeeChoice.equals("5")) {
+                        while (true){
+                            try {
+                                clearScreen();
+                                hotelManager.getEmployeeStatus();
+                                    System.out.println("Witch Employee do you want to remove from the system?"
+                                        + "\n" + "Please state the Id!");
+                                int employeeToDelete = scanner.nextInt();
+                                if (hotelManager.employees.contains(hotelManager.findEmployeeById(employeeToDelete))){
+                                    Boolean areYouSure = yesNoInputToBool("Are you sure you want to remove the Employee?"
+                                            + "\n" +"Please aswer with yes or no!");
+                                    if (areYouSure.equals(true)) {
+                                        clearScreen();
+                                        hotelManager.deleteEmployee(hotelManager.findEmployeeById(employeeToDelete));
+                                        System.out.println("The removal of the Employee was successful.");
+                                        pressAButton();
+                                        scanner.nextLine();
+                                        break;
+                                    }
+                                    else {
+                                        clearScreen();
+                                        System.out.println("The removal of the Employee from the system has been cancelled.");
+                                        pressAButton();
+                                        scanner.nextLine();
+                                        break;
+                                    }
+                                } else {
+                                    clearScreen();
+                                    System.out.println("There is no Employee assignet to the Id or the Id is incorrect");
+                                    pressAButton();
+                                }
+                            } catch (HotelException e){
+                                clearScreen();
+                                System.out.println(e.getMessage());
+                                pressAButton();
+                            }
+                        }
+                    }
+                    else if (employeeChoice.equals("0")) {
                         break;
-                    } else {
+                    }
+                    else {
                         clearScreen();
                         System.out.println("There is no menu point assigned to this number!");
                         pressAButton();
@@ -306,6 +393,7 @@ public class Main {
 
     private static void clearScreen() {
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n"
+                + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n"
                 + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n"
                 + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n"
                 + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");

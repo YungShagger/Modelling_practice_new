@@ -12,19 +12,20 @@ public class HotelManager {
     public List<Customer> customers = new ArrayList<>();
     public Hotel hotel = new Hotel();
 
-    private static int nextId = 0;
+    private static int workerId = 0;
+    private static int customerId = 100;
 
     public static void main() {
     }
 
 
     public void addEmployee(String employeeName) {
-        employees.add(new Employee(employeeName,++nextId , true, false));
+        employees.add(new Employee(employeeName, ++workerId, true, false));
     }
 
 
     public void addCustomer(String name, int money, int space, Boolean frenchBed, Boolean balchony) {
-        customers.add(new Customer(name, money, space, frenchBed, balchony));
+        customers.add(new Customer(name, ++customerId, money, space, frenchBed, balchony));
     }
 
 
@@ -43,13 +44,34 @@ public class HotelManager {
         hotel.addPentHouseRoom(name, room, frenchBed, cost, balchony);
     }
 
+    public void deleteEmployee(Employee employee) {
+        if (employees.contains(employee)) {
+            employees.remove(employee);
+        }
+    }
+
+    public void deleteCustomer(Customer customer) {
+        if (customers.contains(customer)) {
+            customers.remove(customer);
+        }
+    }
+
+    public Customer findCustomerById(int userInput) throws HotelException {
+        for (Customer customer : customers) {
+            if ((customer.getCustomerId() == userInput)) {
+                return customer;
+            }
+        }
+        throw new HotelException("There is no Customer assigned to the ID or incorrect ID!");
+    }
+
     public Employee findEmployeeById(int userInput) throws HotelException {
         for (Employee employee : employees) {
             if ((employee.getWorkerId() == userInput)) {
                 return employee;
             }
         }
-        throw new HotelException("There is no employee assigned to the ID or incorrect ID!");
+        throw new HotelException("There is no Employee assigned to the ID or incorrect ID!");
     }
 
     public void changeWorkStatus(Employee employee) {
@@ -71,6 +93,7 @@ public class HotelManager {
     }
 
     public void printBudgetRooms() {
+        int nextRoom = 0;
         String rent = new String();
         String clean = new String();
         String balchony = new String();
@@ -89,7 +112,7 @@ public class HotelManager {
             if (budgetRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
                     + "\n" + "Number of Beds: " + budgetRoom.getCapacity() + "   Cost/Day: " + budgetRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
@@ -97,6 +120,7 @@ public class HotelManager {
     }
 
     public void printMidClassRooms() {
+        int nextRoom = 0;
         String rent = new String();
         String clean = new String();
         String balchony = new String();
@@ -115,7 +139,7 @@ public class HotelManager {
             if (midClassRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
                     + "\n" + "Number of Beds: " + midClassRoom.getCapacity() + "   Cost/Day: " + midClassRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
@@ -123,6 +147,7 @@ public class HotelManager {
     }
 
     public void printPentHouseRooms() {
+        int nextRoom = 0;
         String rent = new String();
         String clean = new String();
         String balchony = new String();
@@ -141,7 +166,7 @@ public class HotelManager {
             if (pentHouseRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
                     + "\n" + "Number of Beds: " + pentHouseRoom.getCapacity() + "   Cost/Day: " + pentHouseRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
@@ -149,6 +174,7 @@ public class HotelManager {
     }
 
     public void printRooms() {
+        int nextRoom = 0;
         String rent = new String();
         String clean = new String();
         String balchony = new String();
@@ -167,11 +193,12 @@ public class HotelManager {
             if (budgetRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + budgetRoom.getName() + "ID: " + budgetRoom.getRoomId()
                     + "\n" + "Number of Beds: " + budgetRoom.getCapacity() + "   Cost/Day: " + budgetRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
         }
+        nextRoom = 0;
         System.out.println("\n" + "\n" + "\n" + "Mid Class Rooms:" + "\n");
         for (MidClassRoom midClassRoom : hotel.getMidClassRooms()) {
             if (midClassRoom.getRentable().equals(true)) {
@@ -186,11 +213,12 @@ public class HotelManager {
             if (midClassRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + midClassRoom.getName() + "ID: " + midClassRoom.getRoomId()
                     + "\n" + "Number of Beds: " + midClassRoom.getCapacity() + "   Cost/Day: " + midClassRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
         }
+        nextRoom = 0;
         System.out.println("\n" + "\n" + "\n" + "Pent House Rooms:" + "\n");
         for (PentHouseRoom pentHouseRoom : hotel.getPentHouseRooms()) {
             if (pentHouseRoom.getRentable().equals(true)) {
@@ -205,7 +233,7 @@ public class HotelManager {
             if (pentHouseRoom.getFrenchBed().equals(true)) {
                 frenchBed = "Yes";
             } else frenchBed = "No";
-            System.out.println("\n" + ">>>> " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
+            System.out.println("\n" + "#" + ++nextRoom + "  " + pentHouseRoom.getName() + "ID: " + pentHouseRoom.getRoomId()
                     + "\n" + "Number of Beds: " + pentHouseRoom.getCapacity() + "   Cost/Day: " + pentHouseRoom.getCost()
                     + "\n" + "Have a French Bed: " + frenchBed + "   Have a Balchony: " + balchony
                     + "\n" + "Status:    " + "Rentable: " + rent + "   Cleaned: " + clean);
@@ -247,7 +275,7 @@ public class HotelManager {
             } else if (customer.getFrenchBedNeeded().equals(false)) {
                 bedValue = "No";
             }
-            System.out.println("\n" + ">>>> " + customer.getName() + ":"
+            System.out.println("\n" + ">>>> " + customer.getName()+ "  ID:"+ customer.getCustomerId()
                     + "\n" + "Money: " + customer.getMoney()
                     + "   Beds Needed: " + customer.getBedsNeeded()
                     + "  French Bed Needed: " + bedValue
