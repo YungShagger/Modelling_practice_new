@@ -45,8 +45,7 @@ public class Main {
                     + "\n" + "Press 1 to CHECK ROOMS"
                     + "\n" + "Press 2 to CHECK CUSTOMERS"
                     + "\n" + "Press 3 to CHECK EMPLOYEES"
-                    + "\n" + "Press 4 to QUICK RENT"
-                    + "\n" + "press 5 to CHANGE HOTEL"
+                    + "\n" + "press 4 to CHANGE HOTEL"
                     + "\n" + "Press 0 to Exit");
             String menuChoice = scanner.nextLine();
             if (menuChoice.equals("1")) {
@@ -175,50 +174,92 @@ public class Main {
                                     + "\n" + "Press 3 for PENT HOUSE ROOMS"
                                     + "\n" + "Press 0 to go Back");
                             String classChoice = scanner.nextLine();
-                            if (classChoice.equals("1")){
-                                clearScreen();
-                                int nextRoom = 0;
-                                for (BudgetRoom budgetRoom : hotelManager.hotel.getBudgetRooms()) {
-                                    System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + budgetRoom.getName() + ":" );
-                                    try {
-                                        hotelManager.hotel.rent(hotelManager.findCustomerById(customer), budgetRoom, days);
-                                    } catch (HotelException hotelException){
-                                        System.out.println(hotelException.getMessage());
+                            try {
+
+                                if (classChoice.equals("1")){
+                                    clearScreen();
+                                    int nextRoom = 0;
+                                    for (BudgetRoom budgetRoom : hotelManager.hotel.getBudgetRooms()) {
+                                        System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + budgetRoom.getName() + ":" );
+                                        try {
+                                            hotelManager.hotel.rent(hotelManager.findCustomerById(customer), budgetRoom, days);
+                                        } catch (HotelException hotelException){
+                                            System.out.println(hotelException.getMessage());
+                                        }
                                     }
-                                }
-                                pressAButton();
-                                break;
-                            }
-                            else  if (classChoice.equals("2")){
-                                clearScreen();
-                                int nextRoom = 0;
-                                for (MidClassRoom midClassRoom : hotelManager.hotel.getMidClassRooms()) {
-                                    System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + midClassRoom.getName() + ":" );
-                                    try {
-                                        hotelManager.hotel.rent(hotelManager.findCustomerById(customer), midClassRoom, days);
-                                    } catch (HotelException hotelException){
-                                        System.out.println(hotelException.getMessage());
+                                    System.out.println("\n" + "\n" + "Witch room would you like to rent for the customer?"
+                                            + "\n" + "Please state the number of the room."
+                                            + "\n" + "Or press 0 to go Back.");
+                                    int room = scanner.nextInt();
+                                    if (room == 0){
+                                        break;
                                     }
+                                    hotelManager.hotel.getBudgetRooms().get(room-1).setRentable(false);
+                                    hotelManager.hotel.getBudgetRooms().get(room-1).setName(hotelManager.findCustomerById(customer).getName());
+                                    clearScreen();
+                                    System.out.println("The room number " + hotelManager.hotel.getBudgetRooms().get(room-1).getRoomId() + " is succesfuly rented"
+                                            + "\n" + "under the name of " + hotelManager.findCustomerById(customer).getName() + ".");
+                                    pressAButton();
+                                    break;
                                 }
-                                pressAButton();
-                                break;
-                            }
-                            else if (classChoice.equals("3")) {
-                                clearScreen();
-                                int nextRoom = 0;
-                                for (PentHouseRoom pentHouseRoom : hotelManager.hotel.getPentHouseRooms()) {
-                                    System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + pentHouseRoom.getName() + ":" );
-                                    try {
-                                        hotelManager.hotel.rent(hotelManager.findCustomerById(customer), pentHouseRoom, days);
-                                    } catch (HotelException hotelException){
-                                        System.out.println(hotelException.getMessage());
+                                else  if (classChoice.equals("2")){
+                                    clearScreen();
+                                    int nextRoom = 0;
+                                    for (MidClassRoom midClassRoom : hotelManager.hotel.getMidClassRooms()) {
+                                        System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + midClassRoom.getName() + ":" );
+                                        try {
+                                            hotelManager.hotel.rent(hotelManager.findCustomerById(customer), midClassRoom, days);
+                                        } catch (HotelException hotelException){
+                                            System.out.println(hotelException.getMessage());
+                                        }
                                     }
+                                    System.out.println("\n" + "\n" + "Witch room would you like to rent for the customer?"
+                                            + "\n" + "Please state the number of the room."
+                                            + "\n" + "Or press 0 to go Back.");
+                                    int room = scanner.nextInt();
+                                    if (room == 0){
+                                        break;
+                                    }
+                                    hotelManager.hotel.getMidClassRooms().get(room-1).setRentable(false);
+                                    hotelManager.hotel.getMidClassRooms().get(room-1).setName(hotelManager.findCustomerById(customer).getName());
+                                    clearScreen();
+                                    System.out.println("The room number " + hotelManager.hotel.getMidClassRooms().get(room-1).getRoomId() + " is succesfuly rented"
+                                            + "\n" + "under the name of " + hotelManager.findCustomerById(customer).getName() + ".");
+                                    pressAButton();
+                                    break;
                                 }
-                                pressAButton();
-                                break;
+                                else if (classChoice.equals("3")) {
+                                    clearScreen();
+                                    int nextRoom = 0;
+                                    for (PentHouseRoom pentHouseRoom : hotelManager.hotel.getPentHouseRooms()) {
+                                        System.out.println("\n" + "\n" + "\n" + "\n"+ "#" + ++nextRoom + "   " + pentHouseRoom.getName() + ":" );
+                                        try {
+                                            hotelManager.hotel.rent(hotelManager.findCustomerById(customer), pentHouseRoom, days);
+                                        } catch (HotelException hotelException){
+                                            System.out.println(hotelException.getMessage());
+                                        }
+                                    }
+                                    System.out.println("\n" + "\n" + "Witch room would you like to rent for the customer?"
+                                            + "\n" + "Please state the number of the room."
+                                            + "\n" + "Or press 0 to go Back.");
+                                    int room = scanner.nextInt();
+                                    if (room == 0){
+                                        break;
+                                    }
+                                    hotelManager.hotel.getPentHouseRooms().get(room-1).setRentable(false);
+                                    hotelManager.hotel.getPentHouseRooms().get(room-1).setName(hotelManager.findCustomerById(customer).getName());
+                                    clearScreen();
+                                    System.out.println("The room number " + hotelManager.hotel.getPentHouseRooms().get(room-1).getRoomId() + " is succesfuly rented"
+                                            + "\n" + "under the name of " + hotelManager.findCustomerById(customer).getName() + ".");
+                                    pressAButton();
+                                    break;
+                                }
+                                else if (classChoice.equals("0")){
+                                    break;
+                                }
                             }
-                            else if (classChoice.equals("0")){
-                                break;
+                            catch (HotelException hotelException) {
+                                System.out.println(hotelException.getMessage());
                             }
                         }
                     }
@@ -307,7 +348,8 @@ public class Main {
                                     int room = scanner.nextInt();
                                     hotelManager.hotel.getBudgetRooms().get(room-1).clean(employee);
                                     scanner.nextLine();
-                                } else if (roomChoice.equals("2")) {
+                                }
+                                else if (roomChoice.equals("2")) {
                                     clearScreen();
                                     hotelManager.printMidClassRooms();
                                     System.out.println("Witch Room would you like to clean?"
@@ -315,7 +357,8 @@ public class Main {
                                     int room = scanner.nextInt();
                                     hotelManager.hotel.getMidClassRooms().get(room-1).clean(employee);
                                     scanner.nextLine();
-                                } else if (roomChoice.equals("3")) {
+                                }
+                                else if (roomChoice.equals("3")) {
                                     clearScreen();
                                     hotelManager.printPentHouseRooms();
                                     System.out.println("Witch Room would you like to clean?"
@@ -323,7 +366,8 @@ public class Main {
                                     int room = scanner.nextInt();
                                     hotelManager.hotel.getPentHouseRooms().get(room-1).clean(employee);
                                     scanner.nextLine();
-                                } else if (roomChoice.equals("0")) {
+                                }
+                                else if (roomChoice.equals("0")) {
                                 } else {
                                     clearScreen();
                                     System.out.println("There is no Employee assigned to this number!");
@@ -423,11 +467,6 @@ public class Main {
                     }
                 }
             } else if (menuChoice.equals("4")) {
-                clearScreen();
-                System.out.println("Not yet implemented");
-                pressAButton();
-
-            } else if (menuChoice.equals("5")) {
                 clearScreen();
                 System.out.println("Not yet implemented");
                 pressAButton();

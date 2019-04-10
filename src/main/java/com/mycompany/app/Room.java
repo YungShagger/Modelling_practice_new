@@ -53,6 +53,10 @@ public abstract class Room {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Room(String name, int roomId, int capacity, Boolean frenchBed, int cost, Boolean balchony, Boolean rentable, Boolean cleaned) {
         this.name = name;
         this.roomId = roomId;
