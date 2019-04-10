@@ -92,53 +92,61 @@ public class Hotel {
         pentHouseRooms.put(pentHouseRoom.getRoomId(), pentHouseRoom);
     }
 
-    public void rent(Customer customer, Room room) {
-        try {
-            chechIfRoomIsOccupied(room);
-            checkIfRoomIsClean(room);
-            System.out.println(room.getName() + "is renteable and clean");
-            checkCustomerMoney(customer, room);
-            checkRoomCapacity(customer, room);
-            checkRoomBalchony(customer, room);
-            checkFrenchBed(customer, room);
-        } catch (HotelException hotelException){
-            System.out.println(hotelException.getMessage());
-        }
+    public void rent(Customer customer, Room room, int days) throws HotelException{
+        chechIfRoomIsOccupied(room);
+        checkIfRoomIsClean(room);
+        System.out.println("\n" + "Renteable and clean.");
+        checkCustomerMoney(customer, room, days);
+        checkRoomCapacity(customer, room);
+        checkRoomBalchony(customer, room);
+        checkFrenchBed(customer, room);
+
     }
 
-    private void checkCustomerMoney(Customer customer,Room room) throws NotEnoughMoneyException {
-        if (customer.getMoney() < room.getCost()) {
-            throw new NotEnoughMoneyException("Customer dont have enough money for this room.");
+    private void checkCustomerMoney(Customer customer,Room room, int days) throws NotEnoughMoneyException {
+        int totalFee = room.getCost() * days;
+        if (customer.getMoney() < totalFee) {
+            throw new NotEnoughMoneyException("\n" + "Customer dont have enough money for this room.");
+        }
+        else {
+            System.out.println("\n" + "Have the money to rent the room for " + days + " days.");
         }
     }
 
     private void checkRoomCapacity(Customer customer, Room room) throws NotEnoughBedsException{
         if (customer.getBedsNeeded() > room.getCapacity()) {
-            throw new NotEnoughBedsException("Not enough bed for the customer.");
+            throw new NotEnoughBedsException("\n" + "Not enough bed for the customer.");
         }
         else if (customer.getBedsNeeded() < room.getCapacity()) {
             int bedDiference = room.capacity - customer.getBedsNeeded();
-            System.out.println(","
-                    + "\n" + "there are " + bedDiference + "more rooms then needed");
+            System.out.println("\n" + "There are " + bedDiference + " more beds then needed.");
+        }
+        else {
+            System.out.println("\n" + "The amount of beds are perfect.");
         }
     }
 
     private void checkRoomBalchony(Customer customer, Room room) throws NoBalchonyExpection{
         if (customer.getBalchonyNeeded().equals(false) && room.getBalchony().equals(true)) {
-            System.out.println(","
-                    + "\n" + "there is a balcony when not needed");
+            System.out.println("\n" + "there is a balcony when not needed");
         }
         else if (customer.getBalchonyNeeded().equals(true) && room.getBalchony().equals(false)) {
-            throw new NoBalchonyExpection("There is no balchony, but its needed.");
+            throw new NoBalchonyExpection("\n" + "There is no balchony, but its needed.");
+        }
+        else {
+            System.out.println("The balchony state of the room is as required.");
         }
     }
 
     private void checkFrenchBed(Customer customer, Room room) throws NoFrenchBedException {
         if (customer.getFrenchBedNeeded().equals(true) && room.getFrenchBed().equals(false)) {
-            throw new NoFrenchBedException("There is no frenchbed in the room, but its needed.");
+            throw new NoFrenchBedException("\n" + "There is no frenchbed in the room, but its needed.");
         }
         else if (customer.getFrenchBedNeeded().equals(false) && room.getFrenchBed().equals(true))  {
-            System.out.println("There is a french bed, but its not needed");
+            System.out.println("\n" + "There is a french bed, but its not needed");
+        }
+        else {
+            System.out.println("\n" + "The french bed state of the room is as required.");
         }
     }
 
