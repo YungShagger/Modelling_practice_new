@@ -1,6 +1,6 @@
 package com.mycompany.app;
 
-public class Customer extends People {
+public class Customer extends People implements java.io.Serializable {
 
     private int money;
     private int bedsNeeded;

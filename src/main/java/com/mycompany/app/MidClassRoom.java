@@ -4,7 +4,7 @@ import com.mycompany.app.exception.HotelException;
 
 import java.util.Scanner;
 
-public class MidClassRoom extends Room {
+public class MidClassRoom extends Room implements java.io.Serializable {
 
     public MidClassRoom(String name, int roomId, int capacity, Boolean frenchBed, int cost, Boolean balchony, Boolean rentable, Boolean cleaned) {
         super(name, roomId, capacity, frenchBed, cost, balchony, rentable, cleaned);

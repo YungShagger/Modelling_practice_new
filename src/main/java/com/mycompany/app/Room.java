@@ -2,7 +2,7 @@ package com.mycompany.app;
 
 import com.mycompany.app.exception.HotelException;
 
-public abstract class Room {
+public abstract class Room implements java.io.Serializable {
 
     protected String name;
     protected int roomId;

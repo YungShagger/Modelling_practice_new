@@ -2,7 +2,7 @@ package com.mycompany.app;
 
 import java.util.List;
 
-public abstract class People {
+public abstract class People implements java.io.Serializable {
 
     protected String name;
 

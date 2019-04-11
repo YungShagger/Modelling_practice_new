@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HotelManager {
+public class HotelManager implements java.io.Serializable {
     public List<Employee> employees = new ArrayList<>();
     public List<Customer> customers = new ArrayList<>();
     public Hotel hotel = new Hotel();

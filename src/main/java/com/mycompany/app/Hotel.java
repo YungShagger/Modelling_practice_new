@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Hotel {
+public class Hotel implements java.io.Serializable {
 
-    private Map<Integer, BudgetRoom> budgetRooms = new HashMap<>();
+        private Map<Integer, BudgetRoom> budgetRooms = new HashMap<>();
     private Map<Integer, MidClassRoom> midClassRooms = new HashMap<>();
     private Map<Integer, PentHouseRoom> pentHouseRooms = new HashMap<>();
 
@@ -25,7 +25,6 @@ public class Hotel {
     public List<PentHouseRoom> getPentHouseRooms() {
         return new ArrayList<>(pentHouseRooms.values());
     }
-
 
     public MidClassRoom findMidClassRoomById(int inputId) throws InvalidRoomIdException {
         for (MidClassRoom midClassRoom : getMidClassRooms()) {

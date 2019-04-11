@@ -7,31 +7,13 @@ import org.omg.CORBA.TRANSACTION_MODE;
 
 import javax.sound.midi.Soundbank;
 import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    private static HotelManager hotelManager = new HotelManager();
+    public static HotelManager hotelManager = loadFiles();
     public static void main(String[] args) throws NoSuchMenuPointException{
 
-        hotelManager.addPentHouseRoom("PentHouse1",6,false,1000,true);
-        hotelManager.addPentHouseRoom("PentHouse2",8,true,1300,true);
-        hotelManager.addBudgetRoom("Budget1",1,false,30,false);
-        hotelManager.addMidClassRoom("MidClass1",4,false,200,false);
-        hotelManager.addMidClassRoom("MidClass2",2,true,170,true);
-        hotelManager.addPentHouseRoom("PentHouse3",2,true,900,true);
-        hotelManager.addBudgetRoom("Budget2",2,false,60,false);
 
-        hotelManager.addEmployee("David Dickinson");
-        hotelManager.addEmployee("Lea Leander");
-        hotelManager.addEmployee("Kevin Whipaloo");
-        hotelManager.addEmployee("Neil Degrasse Tyson");
-        hotelManager.addEmployee("Kevin Spacey");
-        hotelManager.addEmployee("Shaman king for Shaman King");
-
-        hotelManager.addCustomer("Sonny Mayers", 1000,4,true,true);
-        hotelManager.addCustomer("Ashley May", 5000,2,true,false);
-        hotelManager.addCustomer("Linda Stone",4000,3,false,false);
-        hotelManager.addCustomer("Mike Wasobsky",200,2,true,true);
-        hotelManager.addCustomer("Andy DeKool",50,1,false,false);
 
         clearScreen();
         System.out.println("Welcome to HOTEL GAZEEBO!");
@@ -474,12 +456,44 @@ public class Main {
                 clearScreen();
                 System.out.println("Thank you for using the Hotel Gazeebo Hotelmanager Beta app!"
                         + "\n" + "Have a great day!");
+                saveFiles();
                 break;
             } else {
                 clearScreen();
                 System.out.println("There is no menu point assigned to this number!");
                 pressAButton();
             }
+        }
+    }
+    public static HotelManager loadFiles() {
+        try{
+            FileInputStream fileIn = new FileInputStream("hotelGazeebo.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            hotelManager = (HotelManager) in.readObject();
+            in.close();
+            fileIn.close();
+            return hotelManager;
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return hotelManager;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Hotelmanager class not found");
+            c.printStackTrace();
+            return hotelManager;
+        }
+    }
+
+    public static void saveFiles() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("hotelGazeebo.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(hotelManager);
+            out.close();
+            fileOut.close();
+            System.out.println("Succesfuly saved");
+            pressAButton();
+        }   catch (IOException ioExcepion) {
+            ioExcepion.printStackTrace();
         }
     }
 

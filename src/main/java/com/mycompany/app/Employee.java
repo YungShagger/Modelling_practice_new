@@ -1,6 +1,6 @@
 package com.mycompany.app;
 
-public class Employee extends People{
+public class Employee extends People implements java.io.Serializable {
     private Boolean working;
     private Boolean onBreak;
     private int workerId;
