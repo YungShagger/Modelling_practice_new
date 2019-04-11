@@ -13,8 +13,6 @@ public class Main {
     public static HotelManager hotelManager = loadFiles();
     public static void main(String[] args) throws NoSuchMenuPointException{
 
-
-
         clearScreen();
         System.out.println("Welcome to HOTEL GAZEEBO!");
         pressAButton();
@@ -467,7 +465,7 @@ public class Main {
     }
     public static HotelManager loadFiles() {
         try{
-            FileInputStream fileIn = new FileInputStream("hotelGazeebo.ser");
+            FileInputStream fileIn = new FileInputStream("hotel.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             hotelManager = (HotelManager) in.readObject();
             in.close();
@@ -485,7 +483,7 @@ public class Main {
 
     public static void saveFiles() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("hotelGazeebo.ser");
+            FileOutputStream fileOut = new FileOutputStream("hotel.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(hotelManager);
             out.close();
